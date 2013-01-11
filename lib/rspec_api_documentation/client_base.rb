@@ -49,7 +49,13 @@ module RspecApiDocumentation
       request_metadata[:request_content_type] = request_content_type
       request_metadata[:response_status] = status
       request_metadata[:response_status_text] = Rack::Utils::HTTP_STATUS_CODES[status]
-      request_metadata[:response_body] = response_body.empty? ? nil : response_body
+      
+      if metadata[:response_body].present?
+        request_metadata[:response_body] = metadata[:response_body]
+      else
+        response_body.empty? ? nil : response_body
+      end      
+      
       request_metadata[:response_headers] = response_headers
       request_metadata[:response_content_type] = response_content_type
       request_metadata[:curl] = Curl.new(method, path, request_body, request_headers)
