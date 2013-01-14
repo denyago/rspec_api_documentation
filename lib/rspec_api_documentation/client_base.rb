@@ -53,7 +53,7 @@ module RspecApiDocumentation
       if metadata[:response_body].present?
         request_metadata[:response_body] = metadata[:response_body]
       else
-        response_body.empty? ? nil : response_body
+        request_metadata[:response_body] = response_body.empty? ? nil : response_body
       end      
       
       request_metadata[:response_headers] = response_headers
